@@ -161,14 +161,14 @@ export async function executeOpenFrame(request: OpenFrameRequest): Promise<Clien
 
   const body = tryParseJson(bodyText);
   const fault = isRecord(body) && isRecord(body.fault) ? body.fault : undefined;
+  const detail = fault && typeof fault.faultstring === "string" ? `: ${redact(fault.faultstring, apiKey)}` : "";
   if (response.status === 401 || (fault && response.status === 403)) {
-    return { ok: false, error: { kind: "auth", message: AUTH_ERROR_MESSAGE } };
+    return { ok: false, error: { kind: "auth", message: `${AUTH_ERROR_MESSAGE} (HTTP ${response.status}${detail})` } };
   }
   if (response.status === 429) {
-    return { ok: false, error: { kind: "http", message: "OpenFrame API quota or rate limit exceeded. Try again later." } };
+    return { ok: false, error: { kind: "http", message: `OpenFrame API quota or rate limit exceeded (HTTP 429${detail}). Try again later.` } };
   }
   if (!response.ok) {
-    const detail = fault && typeof fault.faultstring === "string" ? `: ${redact(fault.faultstring, apiKey)}` : "";
     return { ok: false, error: { kind: "http", message: `OpenFrame API returned HTTP ${response.status}${detail}` } };
   }
   if (request.method === "DELETE") return { ok: true, data: null };

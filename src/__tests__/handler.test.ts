@@ -35,4 +35,27 @@ describe("OpenFrame MCP tools", () => {
     expect(JSON.parse(content[0]?.text ?? "{}")).toEqual({ filters: [] });
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
+
+  it("forwards write arguments as the body, excluding path params", async () => {
+    const fetchMock = vi.fn(async () => new Response(JSON.stringify({ id: "n1" }), { status: 200 }));
+    vi.stubGlobal("fetch", fetchMock);
+    process.env.OPENFRAME_API_KEY = "openframe-test-key";
+    process.env.OPENFRAME_TOOL_TIERS = "read,write";
+    const result = await callTool("openframe_ticket_note_add", { id: "t1", content: "hello" });
+    expect(result.isError).toBe(false);
+    const [url, init] = fetchMock.mock.calls[0] as unknown as [URL, RequestInit];
+    expect(String(url)).toMatch(/\/external-api\/tickets\/t1\/notes$/);
+    expect(init.method).toBe("POST");
+    expect(JSON.parse(String(init.body))).toEqual({ content: "hello" });
+  });
+
+  it("rejects dot-segment path arguments before calling the API", async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+    process.env.OPENFRAME_API_KEY = "openframe-test-key";
+    process.env.OPENFRAME_TOOL_TIERS = "read,write";
+    const result = await callTool("openframe_ticket_note_update", { id: "t1", noteId: "..", content: "x" });
+    expect(result.isError).toBe(true);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
 });

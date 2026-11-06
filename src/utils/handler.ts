@@ -11,24 +11,16 @@ function errorResult(text: string): CallToolResult {
   return { content: [{ type: "text", text }], isError: true };
 }
 
-export function toolArgs(spec: ToolSpec): Record<string, unknown> {
-  const schemaProperties = (spec.tool.inputSchema.properties ?? {}) as Record<string, { type?: string }>;
-  const args: Record<string, unknown> = {};
-  for (const [key, value] of Object.entries(spec.body ?? {})) {
-    if (key in schemaProperties) args[key] = value;
-  }
-  for (const [key, value] of Object.entries((spec.tool.inputSchema.properties ?? {}) as Record<string, unknown>)) {
-    if (key in (spec.body ?? {})) continue;
-    const property = (schemaProperties as Record<string, { type?: string }>)[key];
-    if (property?.type === "string") args[key] = (value as { default?: unknown })?.default;
-  }
-  return args;
+function pathParams(spec: ToolSpec): Set<string> {
+  return new Set([...spec.path.matchAll(/\{([^}]+)\}/g)].map((match) => match[1] as string));
 }
 
 export function buildQuery(spec: ToolSpec, args: Record<string, unknown>): string {
   const query = new URLSearchParams();
   const properties = (spec.tool.inputSchema.properties ?? {}) as Record<string, { type?: string }>;
+  const inPath = pathParams(spec);
   for (const [key, property] of Object.entries(properties)) {
+    if (inPath.has(key)) continue;
     const value = args[key];
     if (value === undefined) continue;
     if (property.type === "array") {
@@ -79,13 +71,19 @@ export function createDomainHandler(specs: readonly ToolSpec[]): DomainHandler {
         return errorResult(`Missing required argument(s) for ${name}: ${missing.join(", ")}.`);
       }
 
+      const inPath = pathParams(spec);
+      const invalid = [...inPath].filter((key) => args[key] === "." || args[key] === "..");
+      if (invalid.length > 0) {
+        return errorResult(`Invalid value for path argument(s) of ${name}: ${invalid.join(", ")}.`);
+      }
       const path = spec.path.replace(/\{([^}]+)\}/g, (_match, key: string) => encodeURIComponent(String(args[key] ?? "")));
       const method = spec.method;
       const hasBody = method !== "GET" && method !== "DELETE";
+      const body = Object.fromEntries(Object.entries(args).filter(([key]) => !inPath.has(key)));
       const result = await executeOpenFrame({
         method,
         path: `${path}${method === "GET" ? buildQuery(spec, args) : ""}`,
-        ...(hasBody ? { body: toolArgs(spec) } : {}),
+        ...(hasBody ? { body } : {}),
       });
       if (!result.ok) return errorResult(result.error.message);
       if (method === "DELETE") return { content: [{ type: "text", text: JSON.stringify({ success: true }) }], isError: false };

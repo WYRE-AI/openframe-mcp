@@ -16,7 +16,7 @@ Copy [`.env.example`](.env.example) and set the variables below. The stdio trans
 
 | Variable | Description |
 | --- | --- |
-| `OPENFRAME_BASE_URL` | OpenFrame base URL. Defaults to `https://openframe.example.com`. |
+| `OPENFRAME_BASE_URL` | Set this to your OpenFrame gateway URL. The default, `https://openframe.example.com`, is a placeholder. |
 | `OPENFRAME_API_KEY` | OpenFrame API key for stdio and `AUTH_MODE=env`. |
 | `OPENFRAME_TOOL_TIERS` | Comma-separated `read`, `write`, or `admin`. Defaults to `read`. |
 | `AUTH_MODE` | HTTP auth mode: `env` or `gateway`. |

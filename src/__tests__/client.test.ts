@@ -60,7 +60,14 @@ describe("OpenFrame REST client", () => {
     if (!result.ok) {
       expect(result.error.kind).toBe("auth");
       expect(result.error.message).not.toContain("openframe-test-key");
+      expect(result.error.message).toContain("HTTP 401: InvalidApiKey");
     }
+  });
+
+  it("surfaces the vendor status on rate limits", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => jsonResponse({}, 429)));
+    const result = await executeOpenFrame({ method: "GET", path: "/tools", apiKey: "openframe-test-key" });
+    expect(!result.ok && result.error.message).toContain("HTTP 429");
   });
 
   it("returns credentials from gateway headers only in gateway mode", () => {
