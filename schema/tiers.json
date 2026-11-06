@@ -1,0 +1,214 @@
+{
+  "customerList": {
+    "tier": "read",
+    "operation": "customerList"
+  },
+  "customerGet": {
+    "tier": "read",
+    "operation": "customerGet"
+  },
+  "customerCanArchive": {
+    "tier": "read",
+    "operation": "customerCanArchive"
+  },
+  "deviceList": {
+    "tier": "read",
+    "operation": "deviceList"
+  },
+  "deviceGet": {
+    "tier": "read",
+    "operation": "deviceGet"
+  },
+  "deviceFilters": {
+    "tier": "read",
+    "operation": "deviceFilters"
+  },
+  "ticketList": {
+    "tier": "read",
+    "operation": "ticketList"
+  },
+  "ticketFilters": {
+    "tier": "read",
+    "operation": "ticketFilters"
+  },
+  "ticketStatuses": {
+    "tier": "read",
+    "operation": "ticketStatuses"
+  },
+  "ticketTags": {
+    "tier": "read",
+    "operation": "ticketTags"
+  },
+  "ticketStatistics": {
+    "tier": "read",
+    "operation": "ticketStatistics"
+  },
+  "ticketGet": {
+    "tier": "read",
+    "operation": "ticketGet"
+  },
+  "logList": {
+    "tier": "read",
+    "operation": "logList"
+  },
+  "logFilters": {
+    "tier": "read",
+    "operation": "logFilters"
+  },
+  "logDetails": {
+    "tier": "read",
+    "operation": "logDetails"
+  },
+  "knowledgeBaseItemList": {
+    "tier": "read",
+    "operation": "knowledgeBaseItemList"
+  },
+  "knowledgeBaseItemGet": {
+    "tier": "read",
+    "operation": "knowledgeBaseItemGet"
+  },
+  "knowledgeBaseFoldersList": {
+    "tier": "read",
+    "operation": "knowledgeBaseFoldersList"
+  },
+  "knowledgeBaseArchivedArticlesList": {
+    "tier": "read",
+    "operation": "knowledgeBaseArchivedArticlesList"
+  },
+  "knowledgeBaseTags": {
+    "tier": "read",
+    "operation": "knowledgeBaseTags"
+  },
+  "toolList": {
+    "tier": "read",
+    "operation": "toolList"
+  },
+  "toolFilters": {
+    "tier": "read",
+    "operation": "toolFilters"
+  },
+  "customerCreate": {
+    "tier": "write",
+    "operation": "customerCreate"
+  },
+  "customerUpdate": {
+    "tier": "write",
+    "operation": "customerUpdate"
+  },
+  "deviceUpdateStatus": {
+    "tier": "write",
+    "operation": "deviceUpdateStatus"
+  },
+  "deviceUpdateNickname": {
+    "tier": "write",
+    "operation": "deviceUpdateNickname"
+  },
+  "ticketCreate": {
+    "tier": "write",
+    "operation": "ticketCreate"
+  },
+  "ticketUpdate": {
+    "tier": "write",
+    "operation": "ticketUpdate"
+  },
+  "ticketTransition": {
+    "tier": "write",
+    "operation": "ticketTransition"
+  },
+  "ticketAssign": {
+    "tier": "write",
+    "operation": "ticketAssign"
+  },
+  "ticketAddTag": {
+    "tier": "write",
+    "operation": "ticketAddTag"
+  },
+  "ticketNoteAdd": {
+    "tier": "write",
+    "operation": "ticketNoteAdd"
+  },
+  "ticketNoteUpdate": {
+    "tier": "write",
+    "operation": "ticketNoteUpdate"
+  },
+  "knowledgeBaseItemMove": {
+    "tier": "write",
+    "operation": "knowledgeBaseItemMove"
+  },
+  "knowledgeBaseItemAddTag": {
+    "tier": "write",
+    "operation": "knowledgeBaseItemAddTag"
+  },
+  "knowledgeBaseFolderCreate": {
+    "tier": "write",
+    "operation": "knowledgeBaseFolderCreate"
+  },
+  "knowledgeBaseFolderRename": {
+    "tier": "write",
+    "operation": "knowledgeBaseFolderRename"
+  },
+  "knowledgeBaseArticleCreate": {
+    "tier": "write",
+    "operation": "knowledgeBaseArticleCreate"
+  },
+  "knowledgeBaseArticleUpdate": {
+    "tier": "write",
+    "operation": "knowledgeBaseArticleUpdate"
+  },
+  "knowledgeBaseArticlePublish": {
+    "tier": "write",
+    "operation": "knowledgeBaseArticlePublish"
+  },
+  "knowledgeBaseArticleUnpublish": {
+    "tier": "write",
+    "operation": "knowledgeBaseArticleUnpublish"
+  },
+  "knowledgeBaseArticleUnarchive": {
+    "tier": "write",
+    "operation": "knowledgeBaseArticleUnarchive"
+  },
+  "knowledgeBaseAttachmentCreate": {
+    "tier": "write",
+    "operation": "knowledgeBaseAttachmentCreate"
+  },
+  "ticketUnassign": {
+    "tier": "admin",
+    "operation": "ticketUnassign"
+  },
+  "ticketUnlinkDevice": {
+    "tier": "admin",
+    "operation": "ticketUnlinkDevice"
+  },
+  "ticketUnlinkCustomer": {
+    "tier": "admin",
+    "operation": "ticketUnlinkCustomer"
+  },
+  "ticketNoteDelete": {
+    "tier": "admin",
+    "operation": "ticketNoteDelete"
+  },
+  "ticketRemoveTag": {
+    "tier": "admin",
+    "operation": "ticketRemoveTag"
+  },
+  "knowledgeBaseItemRemoveTag": {
+    "tier": "admin",
+    "operation": "knowledgeBaseItemRemoveTag"
+  },
+  "knowledgeBaseFolderDelete": {
+    "tier": "admin",
+    "operation": "knowledgeBaseFolderDelete"
+  },
+  "knowledgeBaseAttachmentDelete": {
+    "tier": "admin",
+    "operation": "knowledgeBaseAttachmentDelete"
+  },
+  "customerStatus": {
+    "tier": "admin",
+    "operation": "customerStatus"
+  },
+  "knowledgeBaseArticleArchive": {
+    "tier": "admin",
+    "operation": "knowledgeBaseArticleArchive"
+  }
+}

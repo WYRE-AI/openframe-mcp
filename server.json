@@ -1,0 +1,48 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.WYRE-AI/openframe-mcp",
+  "title": "OpenFrame",
+  "description": "MCP server for the OpenFrame External API.",
+  "repository": {
+      "url": "https://github.com/WYRE-AI/openframe-mcp",
+    "source": "github"
+  },
+  "version": "0.0.0",
+  "websiteUrl": "https://github.com/WYRE-AI/openframe-mcp",
+  "packages": [
+    {
+      "registryType": "oci",
+      "identifier": "ghcr.io/wyre-ai/openframe-mcp:0.0.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "MCP_TRANSPORT",
+          "description": "Run the image over stdio (the image defaults to HTTP gateway mode)",
+          "value": "stdio",
+          "format": "string"
+        },
+        {
+          "name": "AUTH_MODE",
+          "description": "Read OPENFRAME_API_KEY from the environment (the image defaults to gateway mode)",
+          "value": "env",
+          "format": "string"
+        },
+        {
+          "name": "OPENFRAME_BASE_URL",
+          "description": "OpenFrame gateway base URL",
+          "isRequired": true,
+          "format": "string"
+        },
+        {
+          "name": "OPENFRAME_API_KEY",
+          "description": "OpenFrame API key",
+          "isRequired": true,
+          "isSecret": true,
+          "format": "string"
+        }
+      ]
+    }
+  ]
+}
